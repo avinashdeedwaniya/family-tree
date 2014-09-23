@@ -959,9 +959,16 @@ function updateMemberInfo($node, updated) {
 		adm='1';
 	}
     
-	$('.member-content').load(plugin_url.pluginurl+'getUserData.php?id=' + contesto.attr('rel-id') + '&top_family_id=' + top_family_id + '&id_family=' + family_id + '&sex=' + sex + '&isSingle=' + isSingle + '&treepassword='+ treePassword + '&adm=' + adm + '&tipo=' + tipo + '&image=' + contesto.attr('rel-photo'), function() {	
-		updated();
-	});		
+	$.ajax({
+         type : "post",
+         //dataType : "json",
+         url : plugin_url.ajaxurl,
+         data : {action: "get_member_info", id : contesto.attr('rel-id'), top_family_id: top_family_id, id_family : family_id, sex : sex, isSingle : isSingle, treepassword : treePassword, adm : adm, tipo : tipo, image : contesto.attr('rel-photo')},
+         success: function(response) {
+               $('.member-content').html(response)
+               updated();
+         }
+      });	
 }
 
 
