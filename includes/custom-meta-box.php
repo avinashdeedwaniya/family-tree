@@ -22,8 +22,8 @@ function family_member_box($post){
      $member_death_on=get_post_meta($post->ID,'member_death_on',true);
      $member_birth_date=get_post_meta($post->ID,'member_birth_date',true);
     ?>
-    <link rel="stylesheet" type="text/css" media="all" href="<?php echo home_url('wp-content/plugins/family-tree/css/jsDatePick_ltr.min.css')?>" />
-    <script type="text/javascript" src="<?php echo home_url('wp-content/plugins/family-tree/js/jsDatePick.full.1.3.js')?>"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="<?php echo plugins_url( 'family-tree/css/jsDatePick_ltr.min.css' )?>" />
+    <script type="text/javascript" src="<?php echo plugins_url( 'family-tree/js/jsDatePick.full.1.3.js' )?>"></script>
     <script type="text/javascript">
     window.onload = function(){
         new JsDatePick({

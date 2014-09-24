@@ -9,7 +9,7 @@ $main_array->children[]	=	(object) get_tree(get_post_meta(get_the_ID(), 'family_
 $json	=	 json_encode($main_array);
 //print_r($main_array); 
 //print_r($json);die;
-//wp_enqueue_script("jquery");
+ wp_enqueue_script("jquery");
 $dir = plugins_url().'/family-tree/';
 ?>
 
@@ -30,23 +30,23 @@ $dir = plugins_url().'/family-tree/';
 <meta name=revisit_after content=14days />
 <meta charset=UTF-8>
 
-<link rel="stylesheet" type="text/css" href="<?php echo home_url('wp-content/plugins/family-tree/css/style.css')?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo plugins_url( 'family-tree/css/style.css' )?>" />
 <script type='text/javascript'>
 /* <![CDATA[ */
-var plugin_url = {"pluginurl":"<?php echo $dir;?>","json_file_url":"<?php echo $dir;?>family_data\/family_<?php echo $post->ID?>.json"};
+var plugin_url = {"ajaxurl":"<?php echo admin_url( 'admin-ajax.php' );?>","pluginurl":"<?php echo $dir;?>","json_file_url":"<?php echo $dir;?>family_data\/family_<?php echo $post->ID?>.json"};
 /* ]]> */
 </script>
-<script type="text/javascript" src="<?php echo home_url('wp-content/plugins/family-tree/js/jquery.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo plugins_url( 'family-tree/js/jquery.min.js' )?>"></script>
 
 
-<script type="text/javascript" src="<?php echo home_url('wp-content/plugins/family-tree/js/modernizr-2.6.2.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo home_url('wp-content/plugins/family-tree/libs/js/jquery.cookie.js')?>"></script>
-<script type="text/javascript" src="<?php echo home_url('wp-content/plugins/family-tree/js/jquery.tap.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo home_url('wp-content/plugins/family-tree/js/jquery.mousewheel.js')?>"></script>
-<script type="text/javascript" src="<?php echo home_url('wp-content/plugins/family-tree/js/jquery.panzoom.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo plugins_url( 'family-tree/js/modernizr-2.6.2.min.js' )?>"></script>
+<script type="text/javascript" src="<?php echo plugins_url( 'family-tree/libs/js/jquery.cookie.js' )?>"></script>
+<script type="text/javascript" src="<?php echo plugins_url( 'family-tree/js/jquery.tap.min.js' )?>"></script>
+<script type="text/javascript" src="<?php echo plugins_url( 'family-tree/js/jquery.mousewheel.js' )?>"></script>
+<script type="text/javascript" src="<?php echo plugins_url( 'family-tree/js/jquery.panzoom.min.js' )?>"></script>
  
 
-<script type="text/javascript" src="<?php echo home_url('wp-content/plugins/family-tree/js/chehebar.js')?>"></script>
+<script type="text/javascript" src="<?php echo plugins_url( 'family-tree/js/chehebar.js' )?>"></script>
 
 
 
@@ -82,9 +82,10 @@ var plugin_url = {"pluginurl":"<?php echo $dir;?>","json_file_url":"<?php echo $
 	<!-- Intro -->
 	<div id="intro">
 		<div class="animation center-v center-h">						
-			<div class="shape hexpink end-position paused"><img src="<?php echo home_url('wp-content/plugins/family-tree/img/hex-pink.png')?>"/></div>
+			<div class="shape hexpink end-position paused"><img src="
+				<?php echo plugins_url( 'family-tree/img/hex-pink.png' )?>"/></div>
 			<div class="shape circleblu start-position paused"><div class="css-shape circle blu"></div></div>	
-			<div class="logo-intro"><img src="<?php echo home_url('wp-content/plugins/family-tree/img/logo-intro.png')?>"/></div>			
+			<div class="logo-intro"><img src="<?php echo plugins_url( 'family-tree/img/logo-intro.png' )?>"/></div>			
 		</div>
 	</div>
 

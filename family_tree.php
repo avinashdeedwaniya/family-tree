@@ -1,6 +1,15 @@
 <?php
 /*
-Plugin Name: Family Tree
+Plugin Name: WP Family Tree
+
+Description: WP Family Tree is a graphical family tree generator plugin for WordPress. Subscriber can create own only family after login.
+Author: Avinash Deedwaniya
+Version: 1.1.0
+
+
+    Copyright (c) 2013-2014 Avinash Deedwaniya
+    WP Family Tree is released under the GNU General Public License (GPL)
+    http://www.gnu.org/licenses/gpl-2.0.txt
 */
 
 require_once('includes/custom-posttype.php');
