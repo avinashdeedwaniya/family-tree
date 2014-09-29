@@ -5,7 +5,7 @@ Template Name: Family Tree
  //get_header();
  
 $main_array	=	new stdClass();
-$main_array->children[]	=	(object) get_tree(get_post_meta(get_the_ID(), 'family_head', true),get_the_ID());
+$main_array->children[]	=	(object) ft_get_tree(get_post_meta(get_the_ID(), 'family_head', true),get_the_ID());
 $json	=	 json_encode($main_array);
 //print_r($main_array); 
 //print_r($json);die;
@@ -54,7 +54,7 @@ var plugin_url = {"ajaxurl":"<?php echo admin_url( 'admin-ajax.php' );?>","plugi
 
 <body>
 	<?php
-		if(!validate_family(get_the_ID())){
+		if(!ft_validate_family(get_the_ID())){
 			wp_die($post->post_title.' formation is not completed yet.<br/> Please try agin later.');
 		}
 	?>

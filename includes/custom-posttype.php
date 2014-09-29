@@ -270,12 +270,12 @@ function add_family_tree_caps() {
     $user_id = $current_user->ID;
     $count = $wpdb->get_var("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_author = $user_id AND post_status IN('publish','pending') AND post_type = 'family_tree'");
     if($count > 0 && $typenow=='family_tree'){
-        add_action('admin_footer','hide_links');
+        add_action('admin_footer','ft_hide_links');
     } 
 }
 add_action( 'admin_init', 'add_family_tree_caps');
 
-function hide_links(){
+function ft_hide_links(){
     $typenow='family_tree';
      $href='post-new.php?post_type='.$typenow;
     ?>

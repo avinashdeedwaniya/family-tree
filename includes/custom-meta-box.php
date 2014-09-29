@@ -3,15 +3,15 @@
 /************************************************************************************************************
 *                           ADDING CUSTOM FIELDS TO FAMILY MEMEBER RELATION
 *************************************************************************************************************/
-add_action( 'add_meta_boxes', 'cd_meta_box_add' );
-function cd_meta_box_add()
+add_action( 'add_meta_boxes', 'ft_meta_box_add' );
+function ft_meta_box_add()
 {
-    add_meta_box( 'member_relation_box', 'Relationship', 'member_relation_box', 'ft_relation', 'normal', 'high' );
-    add_meta_box( 'family_head_box', 'Select Family Head', 'family_head_box', 'family_tree', 'side', 'high' );
-    add_meta_box( 'family_member_box', 'Member Data', 'family_member_box', 'family_member', 'normal', 'high' );
+    add_meta_box( 'ft_member_relation_box', 'Relationship', 'ft_member_relation_box', 'ft_relation', 'normal', 'high' );
+    add_meta_box( 'ft_family_head_box', 'Select Family Head', 'ft_family_head_box', 'family_tree', 'side', 'high' );
+    add_meta_box( 'ft_family_member_box', 'Member Data', 'ft_family_member_box', 'family_member', 'normal', 'high' );
 }
 
-function family_member_box($post){
+function ft_family_member_box($post){
 	// Add an nonce field so we can check for it later.
     wp_nonce_field( 'family_member_box', 'family_member_box_nonce' );
      $member_sex=get_post_meta($post->ID,'member_sex',true);
@@ -156,7 +156,7 @@ function family_member_save_meta_box_data( $post_id){
     $ft = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_author = $user_id AND post_status IN('publish','pending') AND post_type = 'family_tree'");
     write_family_json_file($ft);
 }
-function family_head_box($post)
+function ft_family_head_box($post)
 {
     // Add an nonce field so we can check for it later.
     wp_nonce_field( 'family_head_box', 'family_head_box_nonce' );
@@ -237,7 +237,7 @@ function family_head_save_meta_box_data( $post_id ) {
 }
 add_action( 'save_post', 'family_head_save_meta_box_data' );
 
-function member_relation_box($post)
+function ft_member_relation_box($post)
 {
     global $current_user, $pagenow;
         get_currentuserinfo();
@@ -429,7 +429,7 @@ function ft_save_meta_box_data( $post_id ) {
     
     $my_post = array(
         'ID'           => $post_id,
-        'post_title' => get_member_name($_POST['member1']) . ' is ' .get_role_title($_POST['member1_role']) . ' of ' . get_member_name($_POST['member2'])
+        'post_title' => ft_get_member_name($_POST['member1']) . ' is ' .ft_get_role_title($_POST['member1_role']) . ' of ' . ft_get_member_name($_POST['member2'])
     );
 
         // unhook this function so it doesn't loop infinitely
@@ -450,7 +450,7 @@ add_action( 'save_post', 'ft_save_meta_box_data' );
 
 function write_family_json_file($family_id){
 	/*   create file for family json*/
-    $main_array->children[] =   (object) get_tree(get_post_meta($family_id, 'family_head', true),get_the_ID());
+    $main_array->children[] =   (object) ft_get_tree(get_post_meta($family_id, 'family_head', true),get_the_ID());
     $json   =    json_encode($main_array);
     $file = dirname(dirname(__FILE__)) . '/your-main-php-file.php';
     $dir = plugin_dir_path($file); 
