@@ -132,11 +132,11 @@ function ft_link_add_to_user_profile_page( $user ) { ?>
 *						END OF ADDING CUSTOM FIELDS TO USER PROFILE
 ***********************************************************************************************************/
 
-function get_member_name($member_id){
+function ft_get_member_name($member_id){
     return get_the_title($member_id);
 }
 
-function get_role_title($role_id){
+function ft_get_role_title($role_id){
     return get_the_title($role_id);
 }
 
@@ -154,7 +154,7 @@ if ($post->post_type == "family_tree"){
     return $single;
 }
 
-function get_member_merried_to_name($member_id,$sex){
+function ft_get_member_merried_to_name($member_id,$sex){
     global $wpdb;
     $married_id = get_page_by_title( 'Married','','ft_relation_type' );
     if($sex=="F"){
@@ -208,9 +208,9 @@ function get_member_merried_to_name($member_id,$sex){
             while ( $the_query->have_posts() ) : $the_query->the_post(); 
                     
                      if($sex=="F"){
-                        return  '<br>with '.get_member_name(get_post_meta(get_the_ID(),'member1',true));
+                        return  '<br>with '.ft_get_member_name(get_post_meta(get_the_ID(),'member1',true));
                      }else{
-                        return  '<br>with '.get_member_name(get_post_meta(get_the_ID(),'member2',true));
+                        return  '<br>with '.ft_get_member_name(get_post_meta(get_the_ID(),'member2',true));
                      }
             endwhile; 
             wp_reset_postdata(); 
@@ -236,7 +236,7 @@ add_action('future_to_trash',  'ft_update_json');
 *                               CREATE FAMILY
 ********************************************************************************************************************/
 
-function get_tree($head_id,$family_id){
+function ft_get_tree($head_id,$family_id){
     $aa     = array();
     if($head_id){
         $married_id = get_page_by_title( 'Married','','ft_relation_type' );
@@ -298,7 +298,7 @@ function get_tree($head_id,$family_id){
 
                 }
                 else{
-                    $aa['children'][] = (object) get_tree(get_post_meta(get_the_ID(),'member2',true),$family_id);
+                    $aa['children'][] = (object) ft_get_tree(get_post_meta(get_the_ID(),'member2',true),$family_id);
                 }
             endwhile; 
             wp_reset_postdata(); 
@@ -317,11 +317,11 @@ function get_tree($head_id,$family_id){
 *                               END OF CREATE FAMILY
 ********************************************************************************************************************/
 
-function validate_family($family_id){
+function ft_validate_family($family_id){
     $family_head    =   get_post_meta($family_id, 'family_head', true);
     if($family_head){
 
-        $member2    =   get_member_merried_to_name($family_head,get_post_meta($family_head,'member_sex',true));
+        $member2    =   ft_get_member_merried_to_name($family_head,get_post_meta($family_head,'member_sex',true));
          wp_reset_postdata(); 
         if(trim($member2)!=''){
             return true;
@@ -355,9 +355,9 @@ function filter_ft_listing_by_author( $wp_query_obj )
         $wp_query_obj->set('author', $current_user->ID );
 }
 
-add_action('pre_get_posts','ml_restrict_media_library');
+add_action('pre_get_posts','ft_restrict_media_library');
 
-function ml_restrict_media_library( $wp_query_obj ) {
+function ft_restrict_media_library( $wp_query_obj ) {
     global $current_user, $pagenow;
     if( !is_a( $current_user, 'WP_User') )
     return;
@@ -371,9 +371,9 @@ function ml_restrict_media_library( $wp_query_obj ) {
 /****************************************************************************************************************
 *                                                       FAMILY LISTING
 **************************************************************************************************************/
-add_shortcode("family_listing","family_listing");
+add_shortcode("family_listing","ft_family_listing");
 
-function family_listing(){
+function ft_family_listing(){
     $args = array(
         'post_type' => 'family_tree',
         'posts_per_page'=>-1,
@@ -400,10 +400,10 @@ function family_listing(){
     return $return;
 }
 
-add_action("wp_ajax_get_member_info", "get_member_info");
-add_action("wp_ajax_nopriv_get_member_info", "get_member_info");
+add_action("wp_ajax_ft_get_member_info", "ft_get_member_info");
+add_action("wp_ajax_nopriv_ft_get_member_info", "ft_get_member_info");
 
-function get_member_info(){
+function ft_get_member_info(){
 
     global $wpdb;
     $member_id  =   $_REQUEST['id'];
@@ -432,7 +432,7 @@ function get_member_info(){
     if(trim(get_post_meta($member_id,'member_marry_date',true))!=''){
                         echo'<div class="marriage">
                             <span class="button black circle"><div class="icon icon-rings"></div></span><br>
-                            <span class="text">'.get_post_meta($member_id,'member_marry_date',true).''.get_member_merried_to_name($member_id,get_post_meta($member_id,'member_sex',true)).'</span>      
+                            <span class="text">'.get_post_meta($member_id,'member_marry_date',true).''.ft_get_member_merried_to_name($member_id,get_post_meta($member_id,'member_sex',true)).'</span>      
                         </div>';
     }
 
