@@ -452,8 +452,8 @@ function write_family_json_file($family_id){
 	/*   create file for family json*/
     $main_array->children[] =   (object) get_tree(get_post_meta($family_id, 'family_head', true),get_the_ID());
     $json   =    json_encode($main_array);
- 
-	$dir = ABSPATH . 'wp-content/plugins/family-tree';
+    $file = dirname(dirname(__FILE__)) . '/your-main-php-file.php';
+    $dir = plugin_dir_path($file); 
     $filename = $dir.'/family_data/family_'.$family_id.'.json';
     $somecontent =$json;
 
